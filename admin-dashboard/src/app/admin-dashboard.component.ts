@@ -29,7 +29,7 @@ export class AdminDashboardComponent implements OnInit {
   displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
   sorting: Sorting = {
     column: 'Status',
-    order: 'asc'
+    order: ''
   }
 
   constructor(private dataService: DataService) { }
@@ -76,7 +76,7 @@ export class AdminDashboardComponent implements OnInit {
     return desc;
   }
 
-  sortClick(column: string, order: 'asc' | 'desc') {
+  sortClick(column: string, order: string) {
     if (column !== 'Status')
       return;
 

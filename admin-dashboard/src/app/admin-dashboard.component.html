@@ -14,11 +14,15 @@
 	<div class="row m-2">
 		<div class="col-4 col-md-8 col-lg-12">
 			<div ngbDropdown>
-				<button class="btn btn-primary" id="gfg" ngbDropdownToggle>Sorting Status By
+				<button class="btn btn-primary" id="gfg" ngbDropdownToggle>
 					@if(sorting.order === 'asc'){
-					<span> Ascending Order</span>
+					<span>Sorting by active numbers</span>&nbsp;
+					<span><i class="bi bi-arrow-up"></i></span>
+					} @else if(sorting.order === 'desc') {
+					<span>Sorting by inactive numbers</span>&nbsp;
+					<span><i class="bi bi-arrow-down"></i></span>
 					} @else {
-					<span> Descending Order</span>
+					<span>Not sorting status</span>
 					}
 				</button>
 				<div ngbDropdownMenu="gfg">
@@ -41,9 +45,9 @@
 						@for (column of displayedColumns; track $index){
 						<th>
 							{{ column }}
-							@if (column === 'Status' && !isDesc(column)){
+							@if (column === 'Status' && sorting.order === 'asc'){
 							<span><i class="bi bi-arrow-up"></i></span>
-							} @else if (column === 'Status' && isDesc(column)) {
+							} @else if (column === 'Status' && sorting.order === 'desc') {
 							<span><i class="bi bi-arrow-down"></i></span>
 							}
 						</th>

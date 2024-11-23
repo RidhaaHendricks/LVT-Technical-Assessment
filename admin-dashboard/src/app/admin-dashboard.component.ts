@@ -28,7 +28,7 @@ export class AdminDashboardComponent implements OnInit {
   data: any;
   displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
   sorting: Sorting = {
-    column: 'Status',
+    column: 'Phone Number',
     order: ''
   }
 
@@ -45,17 +45,18 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   sortByStatus(data: any) {
-    if (this.sorting.order === 'asc') data.sort((a: any, b: any) => {
-      if (a.status < b.status) {
-        return -1;
-      }
+    if (this.sorting.order === 'asc')
+      data.sort((a: any, b: any) => {
+        if (a.status < b.status) {
+          return -1;
+        }
 
-      if (a.status > b.status) {
-        return 1;
-      }
+        if (a.status > b.status) {
+          return 1;
+        }
 
-      return 0;
-    });
+        return 0;
+      });
     else
       data.sort((a: any, b: any) => {
         if (a.status < b.status) {
@@ -70,6 +71,13 @@ export class AdminDashboardComponent implements OnInit {
       });
   }
 
+  sortByNumber(data: any) {
+    if (this.sorting.order === 'asc')
+      data.sort((a: any, b: any) => a.number - b.number);
+    else
+      data.sort((a: any, b: any) => b.number - a.number);
+  }
+
   isDesc(column: string): boolean {
     let desc = this.sorting.column === column && this.sorting.order === 'desc';
 
@@ -77,7 +85,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   sortClick(column: string, order: string) {
-    if (column !== 'Status' || order === '')
+    if (column === '' || order === '')
       return;
 
     this.sorting = {
@@ -85,7 +93,11 @@ export class AdminDashboardComponent implements OnInit {
       order: order
     }
 
-    this.sortByStatus(this.data)
+    if (column === 'Status')
+      this.sortByStatus(this.data);
+    else if (column === 'Phone Number')
+      this.sortByNumber(this.data);
+
   }
 
   onSliderChange(event: IAdminDashboard) {
@@ -94,6 +106,6 @@ export class AdminDashboardComponent implements OnInit {
     else
       event.status = 'inactive';
 
-    this.sortClick('Status', this.sorting.order);
+    this.sortClick(this.sorting.column, this.sorting.order);
   }
 }

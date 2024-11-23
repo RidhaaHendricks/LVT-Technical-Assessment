@@ -14,24 +14,30 @@
 	<div class="row m-2">
 		<div class="col-4 col-md-8 col-lg-12">
 			<div ngbDropdown>
-				<button class="btn btn-primary" id="gfg" ngbDropdownToggle>
+				<button class="btn btn-primary" id="sortingToggle" ngbDropdownToggle>
 					@if(sorting.order === 'asc'){
-					<span>Sorting by active numbers</span>&nbsp;
+					<span>Sorting by {{ sorting.column }}</span>&nbsp;
 					<span><i class="bi bi-arrow-up"></i></span>
 					} @else if(sorting.order === 'desc') {
-					<span>Sorting by inactive numbers</span>&nbsp;
+					<span>Sorting by {{ sorting.column }}</span>&nbsp;
 					<span><i class="bi bi-arrow-down"></i></span>
 					} @else {
 					<span>Not sorting status</span>
 					}
 				</button>
-				<div ngbDropdownMenu="gfg">
+				<div ngbDropdownMenu="sortingToggle">
 					<button class="btn btn-danger" ngbDropdownItem (click)="sortClick('Status', 'asc')">
-						Ascending
+						Status by ascending
+					</button>
+					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Status', 'desc')">
+						Status by descending
 					</button>
 					<div class="dropdown-divider"></div>
-					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Status', 'desc')">
-						Descending
+					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Phone Number', 'asc')">
+						Phone number by ascending
+					</button>
+					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Phone Number', 'desc')">
+						Phone number by descending
 					</button>
 				</div>
 			</div>
@@ -45,9 +51,9 @@
 						@for (column of displayedColumns; track $index){
 						<th>
 							{{ column }}
-							@if (column === 'Status' && sorting.order === 'asc'){
+							@if (column === sorting.column && sorting.order === 'asc'){
 							<span><i class="bi bi-arrow-up"></i></span>
-							} @else if (column === 'Status' && sorting.order === 'desc') {
+							} @else if (column === sorting.column && sorting.order === 'desc') {
 							<span><i class="bi bi-arrow-down"></i></span>
 							}
 						</th>

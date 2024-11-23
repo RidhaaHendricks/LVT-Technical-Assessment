@@ -77,7 +77,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   sortClick(column: string, order: string) {
-    if (column !== 'Status')
+    if (column !== 'Status' || order === '')
       return;
 
     this.sorting = {
@@ -94,6 +94,6 @@ export class AdminDashboardComponent implements OnInit {
     else
       event.status = 'inactive';
 
-    // this.sortClick('Status', this.sorting.order);
+    this.sortClick('Status', this.sorting.order);
   }
 }

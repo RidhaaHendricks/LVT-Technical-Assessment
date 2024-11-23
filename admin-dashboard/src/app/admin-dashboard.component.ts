@@ -23,9 +23,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 })
 
 export class AdminDashboardComponent implements OnInit {
+
+
   title: string = ""
-  tempNumbers: IAdminDashboard[] = [];
-  data: any;
+  data: IAdminDashboard[] = [];
   displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
   sorting: Sorting = {
     column: 'Phone Number',
@@ -38,13 +39,13 @@ export class AdminDashboardComponent implements OnInit {
     this.loadInitialData();
   }
 
-  loadInitialData() {
+  private loadInitialData() {
     this.dataService.getData().subscribe(response => {
       this.data = response.message;
     });
   }
 
-  sortByStatus(data: any) {
+  private sortByStatus(data: any) {
     if (this.sorting.order === 'asc')
       data.sort((a: any, b: any) => {
         if (a.status < b.status) {
@@ -71,7 +72,7 @@ export class AdminDashboardComponent implements OnInit {
       });
   }
 
-  sortByNumber(data: any) {
+  private sortByNumber(data: any) {
     if (this.sorting.order === 'asc')
       data.sort((a: any, b: any) => a.number - b.number);
     else

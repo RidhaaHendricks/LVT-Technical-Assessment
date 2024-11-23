@@ -46,8 +46,9 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  private generateMessageSenders(): MessageSender {
-
+  private generateMessageSenders(id: number): MessageSender {
+    const sender = NAMES;
+    const message = MESSAGES;
     return this.messageSender;
   }
 

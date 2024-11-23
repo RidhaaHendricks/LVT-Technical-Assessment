@@ -7,10 +7,10 @@ import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MessageSender } from './models/message-sender.model';
 import { sentence } from '@ndaidong/txtgen';
-import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
+import { uniqueNamesGenerator, Config, names } from 'unique-names-generator';
 
 const customConfig: Config = {
-  dictionaries: [animals],
+  dictionaries: [names],
   separator: '-',
   length: 1,
 };

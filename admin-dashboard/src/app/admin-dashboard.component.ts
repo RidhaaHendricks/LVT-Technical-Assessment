@@ -3,7 +3,7 @@ import { DataService } from './express-server/data.server';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, TemplateRef } from '@angular/core';
 import { Sorting } from './models/sorting.model';
-import { NgbModule, NgbPopoverModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPopoverModule, NgbModal, NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { IMessageSender } from './models/message-sender.model';
 import { sentence } from '@ndaidong/txtgen';
@@ -23,6 +23,8 @@ const customConfig: Config = {
     NgbModule,
     MatSlideToggleModule,
     NgbPopoverModule,
+    NgbPaginationModule,
+    NgbTypeaheadModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: [
@@ -37,6 +39,7 @@ export class AdminDashboardComponent implements OnInit {
   messageSenders: IMessageSender[] = [];
   title: string = ""
   data: IAdminDashboard[] = [];
+  tempNumbers: IAdminDashboard[] = [];
   names: string[] = [];
   sentences: string[] = [];
   displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
@@ -45,6 +48,9 @@ export class AdminDashboardComponent implements OnInit {
     order: ''
   };
   closeResult = '';
+  page = 1;
+  pageSize = 4;
+  collectionSize = 0;
 
   constructor(private dataService: DataService) { }
 
@@ -55,6 +61,8 @@ export class AdminDashboardComponent implements OnInit {
   private loadInitialData() {
     this.dataService.getData().subscribe(response => {
       this.data = response.message;
+
+      this.refreshPages();
     });
   }
 
@@ -99,6 +107,15 @@ export class AdminDashboardComponent implements OnInit {
       sender: randomName.charAt(0).toUpperCase() + randomName.substring(1),
       message: sentence()
     };
+  }
+
+  refreshPages() {
+    this.collectionSize = this.data.length;
+
+    this.tempNumbers = this.data.map((d, i) => ({...d })).slice(
+      (this.page - 1) * this.pageSize,
+      (this.page - 1) * this.pageSize + this.pageSize,
+    );
   }
 
   open(content: TemplateRef<any>, userMessages: IAdminDashboard) {

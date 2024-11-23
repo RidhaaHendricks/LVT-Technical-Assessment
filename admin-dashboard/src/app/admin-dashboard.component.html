@@ -61,7 +61,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@for(item of data; track item.id; let i = $index) {
+					@for(item of tempNumbers; track item.id; let i = $index) {
 					<tr>
 						<td>{{ i + 1 }}</td>
 						<td>{{ item.number}}</td>
@@ -100,6 +100,19 @@
 					}
 				</tbody>
 			</table>
+
+			<div class="d-flex justify-content-between p-2">
+				<ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+					(pageChange)="refreshPages()">
+				</ngb-pagination>
+
+				<select class="form-select" style="width: auto" ngModel="pageSize"
+					(ngModelChange)="refreshPages()">
+					<option ngValue="2">2 items per page</option>
+					<option ngValue="4">4 items per page</option>
+					<option ngValue="6">6 items per page</option>
+				</select>
+			</div>
 		</div>
 	</div>
 </div>

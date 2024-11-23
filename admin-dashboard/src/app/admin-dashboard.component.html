@@ -4,13 +4,19 @@
 <div class="container-fluid">
 	<div class="row m-2">
 		<div class="col-4 col-md-8 col-lg-12">
-			<button type="button" class="btn btn-primary" (click)="sortClick('Status')">Sorting Status By
-				@if(sorting.order === 'asc'){
-				<span> Ascending Order</span>
-				} @else {
-				<span> Descending Order</span>
-				}
-			</button>
+			<div ngbDropdown>
+				<button class="btn btn-primary" id="gfg" ngbDropdownToggle>Sorting Status By
+					@if(sorting.order === 'asc'){
+					<span> Ascending Order</span>
+					} @else {
+					<span> Descending Order</span>
+					}
+				</button>
+				<div ngbDropdownMenu="gfg">
+					<button class="btn btn-danger" ngbDropdownItem (click)="sortClick('Status', 'asc')">Ascending</button>
+					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Status', 'desc')">Descending</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -19,7 +25,7 @@
 				<thead>
 					<tr>
 						@for (column of displayedColumns; track $index){
-						<th (click)="sortClick(column)">
+						<th>
 							{{ column }}
 							@if (column === 'Status' && !isDesc(column)){
 							<span><i class="bi bi-arrow-up"></i></span>

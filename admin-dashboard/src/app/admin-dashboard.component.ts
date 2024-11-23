@@ -3,12 +3,14 @@ import { DataService } from './express-server/data.server';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Sorting } from './models/sorting.model';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
+    NgbModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: [
@@ -71,15 +73,13 @@ export class AdminDashboardComponent implements OnInit {
     return desc;
   }
 
-  sortClick(column: string) {
+  sortClick(column: string, order: 'asc' | 'desc' ) {
     if (column !== 'Status')
       return;
 
-    const newSorting = this.isDesc(column) ? 'asc' : 'desc';
-
     this.sorting = {
       column: column,
-      order: newSorting
+      order: order
     }
 
     this.sortByStatus(this.data)

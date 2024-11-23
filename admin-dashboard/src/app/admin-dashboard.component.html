@@ -73,14 +73,15 @@
 						<!-- <td>{{ item.messages }}</td> -->
 						<td>
 							<div ngbDropdown>
-								<button class="btn btn-primary" id="messageRead" ngbDropdownToggle>
+								<button class="btn btn-primary" id="messageRead" [disabled]="isInactive(item.status)"
+									ngbDropdownToggle>
 									<i class="bi bi-chat-dots"></i>
 									<span class="badge badge-light">{{item.messages}}</span>
 								</button>
 								<div ngbDropdownMenu="messageRead">
-									<p class="btn btn-danger" ngbDropdownItem>
-										Ascending
-									</p>
+									<button class="btn btn-danger" (click)="open(content, item)" ngbDropdownItem>
+										Show messages
+									</button>
 								</div>
 							</div>
 						</td>
@@ -102,9 +103,34 @@
 		</div>
 	</div>
 </div>
-@for (name of names; track $index){
-<p>{{ name }}</p>
-}
-@for (sentence of sentences; track $index){
-<p>{{ sentence }}</p>
-}
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Messages:</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		@for (message of messageSenders; track $index){
+		<div class="row">
+			<div class="col">
+				<div class="p-1 bg-success text-black">
+					<p>{{ message.sender }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="p-1 border border-success">
+					<p>{{ message.message }}</p>
+				</div>
+			</div>
+		</div>
+		<br>
+		} @empty {
+		<p>No messages...</p>
+		}
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Close</button>
+	</div>
+</ng-template>

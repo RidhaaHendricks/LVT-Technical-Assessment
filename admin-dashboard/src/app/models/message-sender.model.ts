@@ -1,4 +1,5 @@
-export class MessageSender {
-    sender: string = "";
-    message: string = "";
+export interface IMessageSender {
+    sender: string;
+    message: string;
+
 }

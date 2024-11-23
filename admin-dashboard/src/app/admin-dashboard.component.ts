@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Sorting } from './models/sorting.model';
 import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MessageSender } from './models/message-sender.model';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +25,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export class AdminDashboardComponent implements OnInit {
 
-
   title: string = ""
   data: IAdminDashboard[] = [];
+  messageSender: MessageSender = new MessageSender;
   displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
   sorting: Sorting = {
     column: 'Phone Number',
@@ -43,6 +44,11 @@ export class AdminDashboardComponent implements OnInit {
     this.dataService.getData().subscribe(response => {
       this.data = response.message;
     });
+  }
+
+  private generateMessageSenders(): MessageSender {
+
+    return this.messageSender;
   }
 
   private sortByStatus(data: any) {

@@ -7,6 +7,13 @@ import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MessageSender } from './models/message-sender.model';
 import { sentence } from '@ndaidong/txtgen';
+import { uniqueNamesGenerator, Config, adjectives, colors, animals } from 'unique-names-generator';
+
+const customConfig: Config = {
+  dictionaries: [animals],
+  separator: '-',
+  length: 1,
+};
 
 @Component({
   selector: 'app-root',
@@ -28,6 +35,7 @@ export class AdminDashboardComponent implements OnInit {
 
   title: string = ""
   data: IAdminDashboard[] = [];
+  names: string[] = [];
   sentences: string[] = [];
   messageSender: MessageSender = new MessageSender;
   displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
@@ -41,6 +49,8 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit() {
     this.loadInitialData();
     for (let i = 0; i < 5; i++) {
+      const randomName: string = uniqueNamesGenerator(customConfig);
+      this.names.push(randomName.charAt(0).toUpperCase() + randomName.substring(1));
       this.sentences.push(sentence());
     }
   }

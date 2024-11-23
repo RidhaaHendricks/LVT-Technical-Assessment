@@ -102,6 +102,9 @@
 		</div>
 	</div>
 </div>
+@for (name of names; track $index){
+<p>{{ name }}</p>
+}
 @for (sentence of sentences; track $index){
 <p>{{ sentence }}</p>
 }

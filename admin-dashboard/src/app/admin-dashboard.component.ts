@@ -3,14 +3,17 @@ import { DataService } from './express-server/data.server';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Sorting } from './models/sorting.model';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    NgbModule
+    NgbModule,
+    MatSlideToggleModule,
+    NgbPopoverModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: [
@@ -23,7 +26,7 @@ export class AdminDashboardComponent implements OnInit {
   title: string = ""
   tempNumbers: IAdminDashboard[] = [];
   data: any;
-  displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages'];
+  displayedColumns: string[] = ['#', 'Phone Number', 'Status', 'Messages', 'Active/Deactivate'];
   sorting: Sorting = {
     column: 'Status',
     order: 'asc'
@@ -73,7 +76,7 @@ export class AdminDashboardComponent implements OnInit {
     return desc;
   }
 
-  sortClick(column: string, order: 'asc' | 'desc' ) {
+  sortClick(column: string, order: 'asc' | 'desc') {
     if (column !== 'Status')
       return;
 
@@ -85,4 +88,12 @@ export class AdminDashboardComponent implements OnInit {
     this.sortByStatus(this.data)
   }
 
+  onSliderChange(event: IAdminDashboard) {
+    if (event.status === 'inactive')
+      event.status = 'active';
+    else
+      event.status = 'inactive';
+
+    // this.sortClick('Status', this.sorting.order);
+  }
 }

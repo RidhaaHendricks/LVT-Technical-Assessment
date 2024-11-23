@@ -1,5 +1,14 @@
-<div class="text-center text-primary">
-	<h1>Hi</h1>
+<div class="text-center">
+	<div class="row">
+		<div class="col text-info">
+			<h1 class="mb-0 text-success">Admin Dashboard</h1>
+		</div>
+		<div class="row">
+			<div class="co">
+				<p class="text-secondary">Admin Dashboard for Managing Temporary Numbers</p>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="container-fluid">
 	<div class="row m-2">
@@ -13,8 +22,13 @@
 					}
 				</button>
 				<div ngbDropdownMenu="gfg">
-					<button class="btn btn-danger" ngbDropdownItem (click)="sortClick('Status', 'asc')">Ascending</button>
-					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Status', 'desc')">Descending</button>
+					<button class="btn btn-danger" ngbDropdownItem (click)="sortClick('Status', 'asc')">
+						Ascending
+					</button>
+					<div class="dropdown-divider"></div>
+					<button class="btn btn-warning" ngbDropdownItem (click)="sortClick('Status', 'desc')">
+						Descending
+					</button>
 				</div>
 			</div>
 		</div>
@@ -46,7 +60,27 @@
 						} @else if (item.status === 'active') {
 						<td>Active</td>
 						}
-						<td>{{ item.messages }}</td>
+						<!-- <td>{{ item.messages }}</td> -->
+						<td>
+							<div ngbDropdown>
+								<button class="btn btn-primary" id="messageRead" ngbDropdownToggle>
+									<i class="bi bi-chat-dots"></i>
+									<span class="badge badge-light">{{item.messages}}</span>
+								</button>
+								<div ngbDropdownMenu="messageRead">
+									<p class="btn btn-danger" ngbDropdownItem>
+										Ascending
+									</p>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div>
+								<mat-slide-toggle color="red" (click)="onSliderChange(item)"
+									[checked]="item.status === 'active'" [disabled]="false">
+								</mat-slide-toggle>
+							</div>
+						</td>
 					</tr>
 					} @empty {
 					<tr>

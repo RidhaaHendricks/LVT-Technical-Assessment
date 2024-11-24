@@ -1,4 +1,4 @@
-# admin-dashboard
+# Admin-Dashboard
 Admin Dashboard for Managing Temporary Numbers
 
 - To Run Admin Dashboard UI
@@ -19,7 +19,7 @@ Admin Dashboard for Managing Temporary Numbers
 3. Once you're in directory "express-server", Run script 'node server.js' to start server.
 
 
-# admin-dashboard Description
+# Admin-Dashboard Description
 The reason I chose Angular & Bootstrap is because I am very similiar
 with its architecture and format, as I use it on a daily bases.
 

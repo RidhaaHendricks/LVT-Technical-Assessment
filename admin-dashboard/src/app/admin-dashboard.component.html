@@ -94,7 +94,9 @@
 					</tr>
 					} @empty {
 					<tr>
-						<td colspan="5" class="text-center">...Empty list of phone numbers...</td>
+						<td [attr.colspan]="displayedColumns.length" class="text-center">
+							...Empty list of phone numbers...
+						</td>
 					</tr>
 					}
 				</tbody>
@@ -110,7 +112,7 @@
 					<option [ngValue]="4">4 items per page</option>
 					<option [ngValue]="6">6 items per page</option>
 				</select>
-			
+
 			</div>
 		</div>
 	</div>

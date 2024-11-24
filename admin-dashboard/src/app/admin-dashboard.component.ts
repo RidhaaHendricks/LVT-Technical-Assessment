@@ -51,7 +51,7 @@ export class AdminDashboardComponent implements OnInit {
   };
   closeResult = '';
   page = 1;
-  pageSize = 2;
+  pageSize = 4;
   collectionSize = 0;
 
   constructor(private dataService: DataService) { }
@@ -64,6 +64,7 @@ export class AdminDashboardComponent implements OnInit {
     this.dataService.getData().subscribe(response => {
       this.data = response.message;
 
+      this.collectionSize = this.data.length;
       this.refreshPages();
     });
   }
@@ -112,8 +113,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   refreshPages() {
-    this.collectionSize = this.data.length;
-
     this.tempNumbers = this.data.map((d, i) => ({ ...d })).slice(
       (this.page - 1) * this.pageSize,
       (this.page - 1) * this.pageSize + this.pageSize,

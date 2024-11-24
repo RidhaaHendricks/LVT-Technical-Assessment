@@ -70,7 +70,6 @@
 						} @else if (item.status === 'active') {
 						<td>Active</td>
 						}
-						<!-- <td>{{ item.messages }}</td> -->
 						<td>
 							<div ngbDropdown>
 								<button class="btn btn-primary" id="messageRead" [disabled]="isInactive(item.status)"
@@ -106,12 +105,12 @@
 					(pageChange)="refreshPages()">
 				</ngb-pagination>
 
-				<select class="form-select" style="width: auto" ngModel="pageSize"
-					(ngModelChange)="refreshPages()">
-					<option ngValue="2">2 items per page</option>
-					<option ngValue="4">4 items per page</option>
-					<option ngValue="6">6 items per page</option>
+				<select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshPages()">
+					<option [ngValue]="2">2 items per page</option>
+					<option [ngValue]="4">4 items per page</option>
+					<option [ngValue]="6">6 items per page</option>
 				</select>
+			
 			</div>
 		</div>
 	</div>

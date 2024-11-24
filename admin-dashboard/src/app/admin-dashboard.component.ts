@@ -8,6 +8,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { IMessageSender } from './models/message-sender.model';
 import { sentence } from '@ndaidong/txtgen';
 import { uniqueNamesGenerator, Config, names } from 'unique-names-generator';
+import { FormsModule } from '@angular/forms';
 
 const customConfig: Config = {
   dictionaries: [names],
@@ -24,7 +25,8 @@ const customConfig: Config = {
     MatSlideToggleModule,
     NgbPopoverModule,
     NgbPaginationModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    FormsModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: [
@@ -49,7 +51,7 @@ export class AdminDashboardComponent implements OnInit {
   };
   closeResult = '';
   page = 1;
-  pageSize = 4;
+  pageSize = 2;
   collectionSize = 0;
 
   constructor(private dataService: DataService) { }
@@ -116,6 +118,7 @@ export class AdminDashboardComponent implements OnInit {
       (this.page - 1) * this.pageSize,
       (this.page - 1) * this.pageSize + this.pageSize,
     );
+    this.sortClick(this.sorting.column, this.sorting.order);
   }
 
   open(content: TemplateRef<any>, userMessages: IAdminDashboard) {

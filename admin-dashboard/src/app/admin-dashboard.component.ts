@@ -66,9 +66,9 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  private sortByStatus(data: any) {
+  private sortByStatus(tempNumbers: any) {
     if (this.sorting.order === 'asc')
-      data.sort((a: any, b: any) => {
+      tempNumbers.sort((a: any, b: any) => {
         if (a.status < b.status) {
           return -1;
         }
@@ -80,7 +80,7 @@ export class AdminDashboardComponent implements OnInit {
         return 0;
       });
     else
-      data.sort((a: any, b: any) => {
+      this.tempNumbers.sort((a: any, b: any) => {
         if (a.status < b.status) {
           return 1;
         }
@@ -93,11 +93,11 @@ export class AdminDashboardComponent implements OnInit {
       });
   }
 
-  private sortByNumber(data: any) {
+  private sortByNumber(tempNumbers: any) {
     if (this.sorting.order === 'asc')
-      data.sort((a: any, b: any) => a.number - b.number);
+      tempNumbers.sort((a: any, b: any) => a.number - b.number);
     else
-      data.sort((a: any, b: any) => b.number - a.number);
+      tempNumbers.sort((a: any, b: any) => b.number - a.number);
   }
 
   private createNewUser(): IMessageSender {
@@ -112,7 +112,7 @@ export class AdminDashboardComponent implements OnInit {
   refreshPages() {
     this.collectionSize = this.data.length;
 
-    this.tempNumbers = this.data.map((d, i) => ({...d })).slice(
+    this.tempNumbers = this.data.map((d, i) => ({ ...d })).slice(
       (this.page - 1) * this.pageSize,
       (this.page - 1) * this.pageSize + this.pageSize,
     );
@@ -155,9 +155,9 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     if (column === 'Status')
-      this.sortByStatus(this.data);
+      this.sortByStatus(this.tempNumbers);
     else if (column === 'Phone Number')
-      this.sortByNumber(this.data);
+      this.sortByNumber(this.tempNumbers);
 
   }
 
